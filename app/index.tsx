@@ -1,9 +1,8 @@
-import { View, Text, TextInput } from "react-native";
+import { Image, StyleSheet, Text } from "react-native";
 import React, { useState } from "react";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import FullScreen from "@/components/containers/FullScreen";
 import FormInput from "@/components/form/FormInput";
-import Card from "@/components/containers/Card";
 import FormButton from "@/components/form/FormButton";
 
 export default function index() {
@@ -11,29 +10,69 @@ export default function index() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = () => {
-    router.push("/home");
+    if (username === "teste" && password === "123") {
+      router.push("/garage"); 
+    } else {
+      setErrorMessage("Usuário ou senha incorretos."); 
+    }
   };
+
+  const handleUsernameChange = (text: string) => {
+    setUsername(text);
+    if (text === "" && password === "") {
+      setErrorMessage(""); 
+    }
+  };
+  
+  const handlePasswordChange = (text: string) => {
+    setPassword(text);
+    if (text === "" && username === "") {
+      setErrorMessage(""); 
+    }
+  };
+  
 
   return (
     <FullScreen>
-      <Card>
+      <Image source={require("../assets/images/Logo.jpeg")} style={styles.logo} />
+
+
         <FormInput
-          label="Username"
+          label="Login"
           value={username}
-          onChangeText={setUsername}
+          onChangeText={handleUsernameChange} 
         />
         <FormInput
-          label="Password"
+          label="Senha"
           value={password}
-          onChangeText={setPassword}
+          onChangeText={handlePasswordChange} 
+          secureTextEntry={true}
         />
 
-        <FormButton onPress={handleLogin} title="Login!" />
+        <FormButton imageSource={require("../assets/images/Start.png")} onPress={handleLogin} title="START" />
 
-        <Link href="/register">Novo por aqui? Registre-se!</Link>
-      </Card>
+        {errorMessage ? (
+          <Text style={styles.error}>{errorMessage}</Text>
+        ) : null}
+    
     </FullScreen>
   );
 }
+
+const styles = StyleSheet.create({
+  logo: {
+    marginTop:-40,
+    marginBottom:25,
+    width: "100%", 
+    height: 150, 
+    resizeMode: "contain",
+  },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginTop: 10,
+  },
+});

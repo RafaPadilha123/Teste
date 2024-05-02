@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React, { ReactNode } from "react";
 import { Stack } from "expo-router";
 
@@ -14,7 +14,7 @@ export default function FullScreen({ children }: FullScreenProps) {
       {children}
     </View>
   );
-}
+}  
 
 const styles = StyleSheet.create({
   container: {
