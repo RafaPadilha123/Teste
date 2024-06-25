@@ -1,0 +1,37 @@
+appId: com.pdm.garage
+---
+- openLink: exp://192.168.1.105:8081
+- tapOn:
+    id: login
+- inputText:
+    id: login
+    text: "teste"
+- tapOn:
+    id: Senha
+- inputText:
+    id: Senha
+    text: "123"
+- tapOn:
+    id: START
+- assertVisible:
+    id: garagePage 
+
+- tapOn: 
+    id: menu
+- tapOn: 
+    text: "Cancelar"  
+
+- tapOn:
+    id: Search
+- inputText: 
+    id: Search
+    text: "chevrolet"
+- assertVisible:
+    text: "chevrolet" 
+
+- tapOn: 
+    id: menu
+- tapOn: 
+    text: "Logout"  
+- tapOn: 
+    text: "Logout"

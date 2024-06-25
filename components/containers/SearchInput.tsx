@@ -12,13 +12,14 @@ const SearchInput: React.FC<SearchInputProps> = ({ value, onChangeText }) => {
       style={styles.input}
       value={value}
       onChangeText={onChangeText}
+      testID="Search"
     />
   );
 };
 
 const styles = StyleSheet.create({
   input: {
-    marginTop: 10,
+    marginTop: 28,
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,

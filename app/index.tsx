@@ -38,26 +38,28 @@ export default function index() {
   return (
     <FullScreen>
       <Image source={require("../assets/images/Logo.jpeg")} style={styles.logo} />
-
-
-        <FormInput
-          label="Login"
-          value={username}
-          onChangeText={handleUsernameChange} 
-        />
-        <FormInput
-          label="Senha"
-          value={password}
-          onChangeText={handlePasswordChange} 
-          secureTextEntry={true}
-        />
-
-        <FormButton imageSource={require("../assets/images/Start.png")} onPress={handleLogin} title="START" />
-
-        {errorMessage ? (
-          <Text style={styles.error}>{errorMessage}</Text>
-        ) : null}
-    
+      <FormInput
+        label="Login"
+        value={username}
+        onChangeText={handleUsernameChange}
+        testID="Login"
+      />
+      <FormInput
+        label="Senha"
+        value={password}
+        onChangeText={handlePasswordChange}
+        secureTextEntry={true}
+        testID="Senha"
+      />
+      <FormButton
+        imageSource={require("../assets/images/Start.png")}
+        onPress={handleLogin}
+        title="START"
+        testID="START"
+      />
+      {errorMessage ? (
+        <Text style={styles.error}>{errorMessage}</Text>
+      ) : null}
     </FullScreen>
   );
 }

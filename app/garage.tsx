@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SectionList, TouchableOpacity } from 'react-native';
-import { useActionSheet } from '@expo/react-native-action-sheet';
-import { Ionicons } from '@expo/vector-icons'; 
+import { StyleSheet, View, Text, SectionList } from 'react-native';
 import SearchInput from '../components/containers/SearchInput';
-import MyComponent from '../components/containers/Mycomponent';
+import NewHeader from '../components/containers/NewHeader';
 import carData from '../data';
+
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { connectActionSheet } from '@expo/react-native-action-sheet';
+import { Stack } from 'expo-router';
+
 
 interface Car {
   id: number;
@@ -30,24 +33,35 @@ const App = () => {
   const sortedData = filteredData.sort((a, b) => a.brand.localeCompare(b.brand));
 
   return (
-    <View style={styles.container}>
-      <MyComponent />
+    <ActionSheetProvider>
+    <View style={styles.container} testID="garagePage">
+      <View style={styles.headerContainer}>
+        <NewHeader />
+      </View>
       <SearchInput value={search} onChangeText={setSearch} />
       <SectionList
         sections={[{ title: 'All Cars', data: sortedData }]}
         renderItem={({ item }) => (
           <View style={styles.item}>
             <Text>
-              {item.brand} {item.model}
+              Marca: {item.brand} 
             </Text>
-            <Text>Year: {item.year}</Text>
+            <Text>
+              Modelo: {item.model} 
+            </Text>
+            <Text>Ano: {item.year}</Text>
           </View>
+
         )}
         keyExtractor={(item, index) => String(index)}
       />
+      <Stack.Screen options={{ headerShown: false }} />
     </View>
+    </ActionSheetProvider>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -55,6 +69,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 20,
     backgroundColor: '#ffffff',
+  },
+  headerContainer: {
+    borderBottomWidth: 2,
+    borderBottomColor: 'black',
+    marginBottom: 20,
   },
   item: {
     marginBottom: 8,
@@ -67,10 +86,8 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
-  sandwichButton: {
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
 });
 
-export default App;
+const ConnectedApp = connectActionSheet(App)
+
+export default ConnectedApp;
